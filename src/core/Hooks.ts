@@ -3,7 +3,6 @@ function useState<T>(initialState: T): [() => T, (arg: T) => void] {
   const getState = (): T => state;
   const setState = (newState: T): void => {
     state = newState;
-    console.log(state);
   };
   return [getState, setState];
 }
