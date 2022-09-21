@@ -1,4 +1,8 @@
 import './css/style.scss';
+import Test from './components/Test';
+import createElement from './core/CreateElement';
 
-const test = document.querySelector('.main');
-if (test instanceof Element) test.innerHTML += 'Yeaha';
+const app = document.getElementById('App');
+const testDiv = Test();
+
+app?.appendChild(testDiv);
