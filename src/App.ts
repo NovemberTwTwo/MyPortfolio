@@ -4,7 +4,7 @@ import Test from './components/Test';
 function App($target: Element) {
   const render = () => {
     const template = createElement('div', { id: 'TestApp' });
-    new Test(template);
+    Test(template);
     $target.replaceChildren(template);
   };
 

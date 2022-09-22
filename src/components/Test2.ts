@@ -1,10 +1,10 @@
 import { createElement, createFragment } from '../core/CreateElement';
 import useState from '../core/Hooks';
 
-const [getNumber, setNumber] = useState(1);
-let num = getNumber();
-
 function Test2($target: Element) {
+  const [getNumber, setNumber] = useState(1);
+  let num = getNumber();
+
   const handleClick = () => {
     setNumber(num + 2);
     num = getNumber();
