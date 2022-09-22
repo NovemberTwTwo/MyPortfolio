@@ -1,31 +1,26 @@
 import { createElement, createFragment } from '../core/CreateElement';
 import useState from '../core/Hooks';
-import Test2 from './Test2';
 
-const [getCount, setCount] = useState(1);
-let count = getCount();
+const [getNumber, setNumber] = useState(1);
+let num = getNumber();
 
-function Test($target: Element) {
+function Test2($target: Element) {
   const handleClick = () => {
-    setCount(count + 1);
-    count = getCount();
+    setNumber(num + 2);
+    num = getNumber();
     render();
   };
 
   const render = () => {
-    const test2_pos = createElement('div', {});
-    new Test2(test2_pos);
-
     const template = createFragment(
-      createElement('h2', { class: 'H2' }, `This is Test ${count}`),
+      createElement('h3', { class: 'h3' }, `This is Test ${num}`),
       createElement(
         'button',
         {
           onclick: handleClick,
         },
-        'Test1',
+        'Test2',
       ),
-      test2_pos,
     );
     $target.replaceChildren(template);
   };
@@ -33,4 +28,4 @@ function Test($target: Element) {
   render();
 }
 
-export default Test;
+export default Test2;

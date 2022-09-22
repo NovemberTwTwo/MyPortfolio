@@ -1,4 +1,4 @@
-function createElement(
+export function createElement(
   tagName: keyof HTMLElementTagNameMap,
   attributes: Object,
   ...children: Array<string | HTMLElement>
@@ -17,12 +17,10 @@ function createElement(
   return element;
 }
 
-function createParentElement(
-  tagName: keyof HTMLElementTagNameMap,
-  attributes: Object,
-  ...children: Array<string | HTMLElement>
-) {
-  const element = document.createElement(tagName);
+export function createFragment(...children: Array<HTMLElement>) {
+  const fragment = document.createDocumentFragment();
+  Array.from(children).forEach((child: HTMLElement) =>
+    fragment.appendChild(child),
+  );
+  return fragment;
 }
-
-export default createElement;

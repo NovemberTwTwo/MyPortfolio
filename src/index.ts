@@ -1,6 +1,5 @@
 import './css/style.scss';
-import Test from './components/Test';
-import createElement from './core/CreateElement';
+import App from './App';
 
-const app = document.getElementById('App');
-Test();
+const $app = document.querySelector('#App');
+new App($app!);
