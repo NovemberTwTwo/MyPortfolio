@@ -1,53 +1,47 @@
-name: Portfolio deploy
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
 on:
   push:
     branches: [master]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+  # This workflow contains a single job called "build"
   build:
-    name: build
+    # The type of runner that the job will run on
     runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    - name: clone MyPorfolio
-      uses: actions/checkout@master
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
 
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: '0.74.3'
+          # extended: true
 
-    - name: git config
-      env:
-        USER_NAME: ${{ github.event.pusher.name }}
-        USER_EMAIL: ${{ github.event.pusher.email }}
-      run: |
-        git config --global user.email "$USER_EMAIL"
-        git config --global user.name "$USER_NAME"
+      - name: Build hugo
+        run: hugo --gc --minify
 
+      - name: Git init
+        run: |
+          git config --global user.name '${{github.actor}}'
+          git config --global user.email '${{github.actor}}@users.noreply.github.com'
 
-    - name: make deploy keys
-      env:
-        GH_ACTION_DEPLOY_KEY: ${{ secrets.GH_ACTION_DEPLOY_KEY }}
-      run: |
-        mkdir -p ~/.ssh/
-        echo "$GH_ACTION_DEPLOY_KEY" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-        ssh-keyscan github.com >> ~/.ssh/known_hosts
+      - name: Git add
+        run: git add --force dist/
 
-    - name: clone static_site_repo
-      run: |
-        cd ..
-        git clone git@github.com:Peelsob4d/MyPortfolio.git static_site_repo
+      - name: Git commit
+        run: git commit -m "publish"
 
-    - name: install dependencies & build
-      run: |
-        npm install
-        npm build
-    
-    - name: move build files to static files repo
-      run |
-        rm -rf ../static_site_repo/*
-        mv ./public/* ../static_site_repo
-    
-    - name: push changed files
-      run: |
-        cd ../static_site_repo
-        git add .
-        git commit -m "$(git -C ../static-site-generator/ log --format=%B -n 1)"
-        git push origin master
-    
+      - name: Push public to branch
+        run: |
+          git subtree split --branch public --prefix dist/
+          git push -f origin dist:dist
+          git branch -D dist
