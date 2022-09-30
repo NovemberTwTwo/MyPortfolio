@@ -1,17 +1,18 @@
 import { createElement, createFragment } from '../core/CreateElement';
 import MenuButton from './MenuButton';
 
-function Menubar() {
+function Menubar(...children: Array<HTMLElement>) {
   const $target = createElement('div', { class: 'menubar-container' });
-
-  const button1 = MenuButton('test1');
 
   const render = () => {
     const template = createFragment(
-      createElement('div', {
-        class: 'grid-container',
-      }),
-      button1,
+      createElement(
+        'div',
+        {
+          class: 'grid-container',
+        },
+        ...children,
+      ),
     );
     $target.replaceChildren(template);
   };

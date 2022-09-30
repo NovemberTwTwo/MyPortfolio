@@ -1,25 +1,20 @@
 import { createElement, createFragment } from '../core/CreateElement';
-import useState from '../core/Hooks';
 
-function MenuButton(buttonText: string) {
-  const $target = createElement('div', {});
-
-  const [getCount, setCount] = useState(1);
-  let count = getCount();
-
-  const handleClick = () => {
-    setCount(count + 1);
-    count = getCount();
-    render();
-  };
+function MenuButton(
+  buttonText: string,
+  clickEvent: Function,
+  pageNumber: number,
+) {
+  const $target = createElement('div', { class: 'menubar-button-box' });
 
   const render = () => {
     const template = createElement(
       'button',
       {
-        onClick: handleClick,
+        onClick: () => clickEvent(pageNumber),
+        class: 'menubar-button',
       },
-      createElement('span', {}, `${buttonText} ${count}`),
+      createElement('span', { class: 'menubar-button-text' }, `${buttonText}`),
     );
     $target.replaceChildren(template);
   };
