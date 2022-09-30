@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+
 // Colors
 $theme-color-dark-1: #303030;
 $theme-color-dark-2: #2b2b2b;
@@ -6,7 +8,27 @@ $theme-color-dark-4: #1b1c1e;
 
 // bp size
 $bp-largest: 1440px;
-$bp-large: 1024px;
-$bp-medium: 840px;
+$bp-large: 1200px;
+$bp-medium: 860px;
 $bp-small: 600px;
-$bp-smallest: 360px;
+$bp-smallest: 460px;
+
+// font size
+$font-size-largest: 3rem;
+$font-size-large: 2rem;
+$font-size-medium: 1.5rem;
+$font-size-small: 1rem;
+$font-size-smallest: 0.8rem;
+
+html {
+  font-size: 16px;
+  @media (max-width: $bp-large) {
+    font-size: 14px;
+  }
+  @media (max-width: $bp-medium) {
+    font-size: 12px;
+  }
+  @media (max-width: $bp-small) {
+    font-size: 10px;
+  }
+}
