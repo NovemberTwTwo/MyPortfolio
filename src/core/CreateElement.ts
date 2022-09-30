@@ -11,7 +11,7 @@ export function createElement(
   });
   Array.from(children).forEach((child: HTMLElement | string) =>
     typeof child === 'string'
-      ? (element.innerHTML += child)
+      ? (element.innerHTML = child)
       : element.appendChild(child),
   );
   return element;

@@ -1,3 +1,39 @@
-.main {
-  background-color: aqua;
+body {
+  margin: 0;
+  padding: 0;
+}
+// Menubar
+.menubar-container {
+  width: 100vw;
+  height: 5vh;
+  background-color: #1b1e1e;
+  position: fixed;
+}
+
+// Welcome
+.welcome-container {
+  width: 100vw;
+  height: 100vh;
+  background-image: url(/public/images/my_background.jpg);
+  background-size: cover;
+
+  align-items: center;
+  display: flex;
+}
+.welcome-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: 18px;
+  margin: 0 150px 0 150px;
+}
+.welcome-text-container {
+  grid-column: 3 / 11;
+}
+.welcome-text {
+  color: white;
+  font-size: 64px;
+}
+.grid-test {
+  height: 100vh;
+  background-color: white;
 }
