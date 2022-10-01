@@ -6,7 +6,7 @@ import Welcome from './components/Welcome';
 import { createElement } from './core/CreateElement';
 
 const delay = (timeToDelay: number) =>
-  new Promise((resolve, reject) => setTimeout(resolve, timeToDelay));
+  new Promise((resolve) => setTimeout(resolve, timeToDelay));
 
 function App($target: Element) {
   const onMenuButtonClick = ($page: Element) => {
@@ -19,36 +19,23 @@ function App($target: Element) {
     window.innerHeight || 0,
   );
 
-  let lastScroll = 0;
-
-  const preventDefault = (e) => {
+  const onScroll = (e) => {
     e.preventDefault();
-  };
-
-  const onScroll = async () => {
-    console.log('test');
-    document.addEventListener('wheel', preventDefault, {
-      passive: false,
-    });
-    window.onscroll = null;
-    if (document.documentElement.scrollTop > lastScroll) {
-      window.scrollTo({
-        top: Math.ceil(window.scrollY / vh) * vh,
+    if (window.scrollY != vh * 2)
+      window.scrollBy({
+        top: vh,
         behavior: 'smooth',
       });
-    } else {
+    else
       window.scrollTo({
-        top: Math.floor(window.scrollY / vh) * vh,
+        top: 0,
         behavior: 'smooth',
       });
-    }
-    await delay(1000);
-    window.onscroll = onScroll;
-    document.removeEventListener('wheel', preventDefault);
-    lastScroll = document.documentElement.scrollTop;
   };
 
-  window.onscroll = onScroll;
+  document.addEventListener('wheel', onScroll, {
+    passive: false,
+  });
 
   const render = () => {
     const template = createElement(
