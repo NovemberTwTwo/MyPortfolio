@@ -1,17 +1,13 @@
 import { createElement, createFragment } from '../core/CreateElement';
 
-function MenuButton(
-  buttonText: string,
-  clickEvent: Function,
-  pageNumber: number,
-) {
+function MenuButton(buttonText: string, clickEvent: Function, $page: Element) {
   const $target = createElement('div', { class: 'menubar-button-box' });
 
   const render = () => {
     const template = createElement(
       'button',
       {
-        onClick: () => clickEvent(pageNumber),
+        onClick: () => clickEvent($page),
         class: 'menubar-button',
       },
       createElement('span', { class: 'menubar-button-text' }, `${buttonText}`),
