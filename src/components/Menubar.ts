@@ -2,7 +2,9 @@ import { createElement, createFragment } from '../core/CreateElement';
 import MenuButton from './MenuButton';
 
 function Menubar(...children: Array<HTMLElement>) {
-  const $target = createElement('div', { class: 'menubar-container' });
+  const $target = createElement('div', {
+    class: 'menubar-container',
+  });
 
   const render = () => {
     const template = createFragment(

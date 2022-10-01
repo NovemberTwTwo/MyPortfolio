@@ -2,7 +2,7 @@ import { createElement, createFragment } from '../core/CreateElement';
 
 function Experience() {
   const $target = createElement('div', {
-    class: 'experience-container',
+    class: 'experience-container toObserve',
   });
   const render = () => {
     const template = createFragment(

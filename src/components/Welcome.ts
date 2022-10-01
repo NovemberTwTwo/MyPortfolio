@@ -1,7 +1,9 @@
 import { createElement, createFragment } from '../core/CreateElement';
 
 function Welcome() {
-  const $target = createElement('div', { class: 'welcome-container' });
+  const $target = createElement('div', {
+    class: 'welcome-container toObserve',
+  });
 
   const render = () => {
     const template = createFragment(
