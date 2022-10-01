@@ -19,21 +19,27 @@ function App($target: Element) {
     window.innerHeight || 0,
   );
 
-  const onScroll = (e) => {
-    e.preventDefault();
-    if (window.scrollY != vh * 2)
+  const onScroll = async (e) => {
+    if (e.deltaY > 0)
       window.scrollBy({
         top: vh,
         behavior: 'smooth',
       });
     else
-      window.scrollTo({
-        top: 0,
+      window.scrollBy({
+        top: -vh,
         behavior: 'smooth',
       });
+    document.removeEventListener('wheel', onScroll);
+    await delay(500);
+    document.addEventListener('wheel', onScroll, { passive: false });
   };
 
   document.addEventListener('wheel', onScroll, {
+    passive: false,
+  });
+
+  document.addEventListener('wheel', (e) => e.preventDefault(), {
     passive: false,
   });
 
