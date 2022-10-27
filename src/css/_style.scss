@@ -4,10 +4,11 @@ body {
   font-family: 'Noto Sans KR', sans-serif;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+  scroll-behavior: smooth;
 }
-body::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera*/
-}
+// body::-webkit-scrollbar {
+//   display: none; /* Chrome, Safari, Opera*/
+// }
 // Grid
 .grid-container {
   display: grid;
@@ -55,12 +56,25 @@ body::-webkit-scrollbar {
   font-weight: 300;
 }
 
+// Main
+.main-container {
+  width: 100vw;
+  height: 100vh;
+  overflow: scroll;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+
+  background-image: url(/public/images/my_background.jpg);
+  background-size: cover;
+}
+.main-container::-webkit-scrollbar {
+  display: none;
+}
+
 // Welcome
 .welcome-container {
   width: 100vw;
   height: 100vh;
-  background-image: url(/public/images/my_background.jpg);
-  background-size: cover;
 }
 .welcome-background {
   width: 100%;

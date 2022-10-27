@@ -3,63 +3,42 @@ import Menubar from './components/Menubar';
 import MenuButton from './components/MenuButton';
 import Profile from './components/Profile';
 import Welcome from './components/Welcome';
-import { createElement } from './core/CreateElement';
+import { createElement, createFragment } from './core/CreateElement';
+import fixedPage from './utils/fixedPage';
 
-const delay = (timeToDelay: number) =>
-  new Promise((resolve) => setTimeout(resolve, timeToDelay));
+const [welcome, experience, profile] = [Welcome(), Experience(), Profile()];
+const main = createElement(
+  'div',
+  { class: 'main-container' },
+  welcome,
+  experience,
+  profile,
+);
 
-function App($target: Element) {
+function App() {
+  const $target = createElement('div', {});
+
   const onMenuButtonClick = ($page: Element) => {
     $page.scrollIntoView({ behavior: 'smooth' });
   };
-  const [welcome, experience, profile] = [Welcome(), Experience(), Profile()];
 
-  const vh = Math.max(
-    document.documentElement.clientHeight || 0,
-    window.innerHeight || 0,
-  );
-
-  const onScroll = async (e) => {
-    if (e.deltaY > 0)
-      window.scrollBy({
-        top: vh,
-        behavior: 'smooth',
-      });
-    else
-      window.scrollBy({
-        top: -vh,
-        behavior: 'smooth',
-      });
-    document.removeEventListener('wheel', onScroll);
-    await delay(500);
-    document.addEventListener('wheel', onScroll, { passive: false });
-  };
-
-  document.addEventListener('wheel', onScroll, {
-    passive: false,
-  });
-
-  document.addEventListener('wheel', (e) => e.preventDefault(), {
-    passive: false,
-  });
+  fixedPage(main);
 
   const render = () => {
-    const template = createElement(
-      'div',
-      { id: 'TestApp' },
+    const template = createFragment(
       Menubar(
-        MenuButton('Intro', onMenuButtonClick, welcome),
-        MenuButton('Experience', onMenuButtonClick, experience),
-        MenuButton('Profile', onMenuButtonClick, profile),
+        MenuButton('Intro', () => onMenuButtonClick(welcome)),
+        MenuButton('Experience', () => onMenuButtonClick(experience)),
+        MenuButton('Profile', () => onMenuButtonClick(profile)),
       ),
-      welcome,
-      experience,
-      profile,
+      main,
     );
     $target.replaceChildren(template);
   };
 
   render();
+
+  return $target;
 }
 
 export default App;
